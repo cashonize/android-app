@@ -154,6 +154,7 @@ main{
 }
 #noTokensFound {
   text-align: center;
+  margin-top: 40px;
 }
 #selectUnit, #selectUri{
   box-sizing: content-box;

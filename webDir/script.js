@@ -148,11 +148,11 @@ async function loadWalletInfo() {
     // Either display tokens in wallet or display there are no tokens
     const divNoTokens = document.querySelector('#noTokensFound');
     if (arrayTokens.length) {
-      divNoTokens.textContent = "";
+      divNoTokens.classList.add("hide");
       createListWithTemplate(arrayTokens);
       importRegistries(arrayTokens);
     } else {
-      divNoTokens.textContent = "Currently there are no tokens in this wallet";
+      divNoTokens.classList.remove("hide");
     }
   }
 
