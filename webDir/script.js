@@ -2,10 +2,7 @@ import { queryTotalSupplyFT, queryActiveMinting, querySupplyNFTs } from './query
 
 const explorerUrl = "https://chipnet.chaingraph.cash";
 
-
-
 const newWalletView = document.querySelector('#newWalletView');
-const footer = document.querySelector('.footer');
 const seedphrase = document.getElementById("seedphrase");
 
 // Logic dark mode
@@ -47,13 +44,11 @@ document.addEventListener("DOMContentLoaded", async (event) => {
   // Test that indexedDB is available
   var db = window.indexedDB.open('test');
   db.onerror = () => {
-    footer.classList.remove("hide");
     newWalletView.classList.remove("hide");
     setTimeout(() => alert("Can't create a persistent wallet because indexedDb is unavailable, might be because of private window."), 100);
   }
 
   const walletExists = await TestNetWallet.namedExists('mywallet');
-  footer.classList.remove("hide");
   if(!walletExists) newWalletView.classList.remove("hide");
   else{loadWalletInfo()};
 })
@@ -185,127 +180,6 @@ async function loadWalletInfo() {
       document.querySelector('#sendAmount').value = "";
       document.querySelector('#sendAddr').value = "";
     } catch (error) { alert(error) }
-  });
-
-  // Functionality CreateTokens view depending on selected token-type
-  document.querySelector('#createTokens').addEventListener("click", async () => {
-    // Check if metadata url is added
-    const httpsSelected = document.querySelector('#ipfsInfo').classList.contains("hide");
-    const url = document.querySelector('#bcmrUrl').value;
-    const bcmrIpfs = document.querySelector('#bcmrIpfs').value;
-    let opreturnData
-    if(httpsSelected && url){
-      try{
-        const reponse = await fetch("https://" + url);
-        const bcmrContent = await reponse.text();
-        const hashContent = sha256.hash(utf8ToBin(bcmrContent)).reverse();
-        const chunks = ["BCMR", hashContent, url];
-        opreturnData = OpReturnData.fromArray(chunks);
-      } catch (error) {
-        alert("Cant' read json data from the provided url. \nDouble check that the url links to a json object.")
-        console.log(error);
-        return
-      }
-    }
-    if(!httpsSelected && bcmrIpfs){
-      try{
-        const chunks = ["BCMR", bcmrIpfs];
-        opreturnData = OpReturnData.fromArray(chunks);
-      } catch (error) {
-        alert("Cant' read json data from the provided url. \nDouble check that the url links to a json object.")
-        console.log(error);
-        return
-      }
-    }
-    // Check if fungibles are selected
-    if(document.querySelector('#newtokens').value === "fungibles"){
-      // Check inputField
-      const tokenSupply = document.querySelector('#tokenSupply').value;
-      const validInput = Number.isInteger(+tokenSupply) && +tokenSupply > 0;
-      if(!validInput){alert(`Input total supply must be a valid integer`); return}
-      // Create fungible tokens
-      try {
-        const genesisResponse = await wallet.tokenGenesis(
-          {
-            cashaddr: tokenAddr,
-            amount: tokenSupply,            // fungible token amount
-            value: 1000,                    // Satoshi value
-          }, 
-          opreturnData 
-        );
-        const tokenId = genesisResponse.tokenIds[0];
-        const { txId } = genesisResponse;
-        alert(`Created ${tokenSupply} fungible tokens of category ${tokenId}`);
-        console.log(`Created ${tokenSupply} fungible tokens \n${explorerUrl}/tx/${txId}`);
-        document.querySelector('#createTokensView').querySelectorAll('input:not([type=button])').forEach(input => input.value = ""); 
-        return txId
-      } catch (error) { console.log(error) }
-    }
-    // If minting NFT is selected
-    if(document.querySelector('#newtokens').value === "mintingNFT"){
-    // Create minting token
-      try{
-        const genesisResponse = await wallet.tokenGenesis(
-          {
-            cashaddr: tokenAddr,
-            commitment: "",             // NFT Commitment message
-            capability: NFTCapability.minting, // NFT capability
-            value: 1000,                    // Satoshi value
-          },
-          opreturnData 
-        );
-        const tokenId = genesisResponse.tokenIds[0];
-        const { txId } = genesisResponse;
-
-        alert(`Created minting NFT for category ${tokenId}`);
-        console.log(`Created minting NFT for category ${tokenId} \n${explorerUrl}/tx/${txId}`);
-        document.querySelector('#createTokensView').querySelectorAll('input:not([type=button])').forEach(input => input.value = "");
-        return txId
-      }catch (error) { alert(error) }
-    }
-    // If immutable NFT is selected
-    if(document.querySelector('#newtokens').value === "immutableNFT"){
-      // Create an immutable NFT
-      try{
-        const commitmentInput = document.querySelector('#inputNftCommitment').value;
-        const genesisResponse = await wallet.tokenGenesis(
-          {
-            cashaddr: tokenAddr,
-            commitment: commitmentInput,    // NFT Commitment message
-            capability: NFTCapability.none, // NFT capability
-            value: 1000,                    // Satoshi value
-          },
-          opreturnData 
-        );
-        const tokenId = genesisResponse.tokenIds[0];
-        const { txId } = genesisResponse;
-  
-        alert(`Created an immutable NFT for category ${tokenId}`);
-        console.log(`Created an immutable NFT for category ${tokenId} \n${explorerUrl}/tx/${txId}`);
-        document.querySelector('#createTokensView').querySelectorAll('input:not([type=button])').forEach(input => input.value = "");
-        return txId
-      }catch (error) { alert(error) }
-    }
-  });
-
-  document.querySelector('#view2').addEventListener("click", async () => {
-    async function getValidPreGensis() {
-      let walletUtxos = await wallet.getAddressUtxos();
-      return walletUtxos.filter(utxo => !utxo.token && utxo.vout === 0);
-    }
-    let validPreGenesis= await getValidPreGensis()
-    console.log(validPreGenesis)
-    if(validPreGenesis.length === 0){
-      document.querySelector("#plannedTokenId").textContent = 'loading...';
-      document.querySelector("#plannedTokenId").value = "";
-      await wallet.send([{ cashaddr: wallet.tokenaddr, value: 10000, unit: "sat" }]);
-      console.log("Created output with vout zero for token genesis");
-      validPreGenesis= await getValidPreGensis()
-    }
-    const tokenId = validPreGenesis[0].txid;
-    const displayId = `${tokenId.slice(0, 20)}...${tokenId.slice(-10)}`;
-    document.querySelector("#plannedTokenId").textContent = displayId;
-    document.querySelector("#plannedTokenId").value = tokenId;
   });
 
   // Import onchain resolved BCMRs
@@ -602,7 +476,7 @@ window.copyTokenID = function copyTokenID(event, id='tokenID') {
 
 // Change view logic
 window.changeView = function changeView(newView) {
-  const views = ['walletView','tokenView','createTokensView','settingsView'];
+  const views = ['walletView','tokenView','settingsView'];
   // First hide all views
   views.forEach((view, index) => {
     document.querySelector(`#${view}`).classList.add("hide");
@@ -611,25 +485,6 @@ window.changeView = function changeView(newView) {
   // Show selected view & highlight in nav
   document.querySelector(`#${views[newView]}`).classList.remove("hide");
   document.querySelector(`#view${newView}`).classList = "view active";
-}
-
-// Change create token view
-window.selectTokenType = function selectTokenType(event){
-  const tokenSupply = document.querySelector('#tokenSupply').parentElement;
-  const tokenCommitment = document.querySelector('#inputNftCommitment').parentElement;
-  tokenSupply.classList.add("hide");
-  tokenCommitment.classList.add("hide");
-  if(event.target.value === "fungibles") tokenSupply.classList.remove("hide");
-  if(event.target.value === "immutableNFT") tokenCommitment.classList.remove("hide");
-}
-
-window.selectUri = function selectUri(event){
-  const httpsInfo = document.querySelector('#httpsInfo');
-  const ipfsInfo = document.querySelector('#ipfsInfo');
-  httpsInfo.classList.add("hide");
-  ipfsInfo.classList.add("hide");
-  if(event.target.value === "HTTPS") httpsInfo.classList.remove("hide");
-  if(event.target.value === "IPFS") ipfsInfo.classList.remove("hide");
 }
 
 // Change default unit

@@ -79,7 +79,7 @@ main{
 #switchAddress {
   position: relative;
   top: -10px;
-  font-size: 20px;
+  font-size: 26px;
   font-weight: bold;
   cursor: pointer;
 }

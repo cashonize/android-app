@@ -24,15 +24,13 @@
         <img class="icon" style="width: 40px;" src="/images/favicon.png">
         CashTokens Wallet
       </h1>
-      <b>Connected to chipnet</b>
       <div>
         <nav class="nav hide">
           <div class="nav-left">
             <div class="tabs">
               <a id="view0" class="view active" onclick="changeView(0)">BchWallet</a>
               <a id="view1" class="view" onclick="changeView(1)">MyTokens</a>
-              <a id="view2" class="view" onclick="changeView(2)">CreateTokens</a>
-              <a id="view3" class="view" onclick="changeView(3)">
+              <a id="view2" class="view" onclick="changeView(2)">
                 <div><img id="settingsIcon" class="icon" src="/images/settings.svg"></div>
               </a>
             </div>
@@ -221,57 +219,6 @@
         <div id="Placeholder"></div>
       </div>
 
-      <div id="createTokensView" class="hide">
-        <fieldset class="item">
-          <legend>Create new tokens</legend>
-          <label for="newtokens">Select token-type:</label>
-          <select name="newtokens" id="newtokens" onchange="selectTokenType(event)">
-            <option value="fungibles">Fungible Tokens</option>
-            <option value="mintingNFT">Minting NFT</option>
-            <option value="immutableNFT">Immutable NFT</option>
-          </select>
-          <br>
-          <div style="margin-bottom: 1em;">
-            Planned tokenId:
-            <span id="plannedTokenId">loading...</span>
-            <button type="button" style="background: none; padding: 0;" onclick="copyTokenID(event,'plannedTokenId')">
-              <img class="copyIcon" src="/images/copy.svg">
-            </button>
-          </div>
-          <div style="margin-bottom: 1em;">
-            Choose the total supply of these fungible tokens
-            <input id="tokenSupply" placeholder="total supply">
-          </div>
-          <div class="hide" style="margin-bottom: 1em;">
-            Add immutable commitment data to add to this NFT (hexadecimals only)
-            <input id="inputNftCommitment" placeholder="commitment">
-          </div>
-          <details>
-            <summary>Optionally link metadata to this token</summary>
-            <label for="selectUri">Upload the metadata to</label>
-            <select name="selectUri" id="selectUri" onchange="selectUri(event)">
-              <option value="HTTPS">HTTPS</option>
-              <option value="IPFS">IPFS</option>
-            </select><br>
-            <div id="httpsInfo">              
-              You can easily create a https url to host your BCMR with Github Gist, similar to 
-              <a href="https://gist.github.com/mr-zwets/323c7786e2acf01e3c04a440d7cf6c2c" target="_blank">this example</a>. <br>
-              Then on Github Gists, press "raw" button to get the url to the json object. <br>
-              Copy this url without the 'https://'' prefix and everything after '/raw'. <br>
-              Your BCMR url together with the hash of its content will be stored on the blockchain.
-              <input id="bcmrUrl" placeholder="gist.githubusercontent.com/mr-zwets/323c7786e2acf01e3c04a440d7cf6c2c/raw">
-            </div>
-            <div id="ipfsInfo" class="hide">
-              For IPFS only the Content Identifier (CID) will be added on-chain, because it is a hash of the BCMR content already.
-              <input id="bcmrIpfs" placeholder="QmbWqxBEKC3P8tqsKc98xmWNzrzDtRLMiMPL8wBuTGsMnR">
-            </div>
-          </details>
-          <br>
-          Process might take a few seconds... 
-          <input type="button" class="primaryButton" id="createTokens" value="Create">
-        </fieldset>
-      </div>
-
       <div id="settingsView" class="hide">
         <fieldset class="item">
           <legend>Settings</legend>
@@ -290,24 +237,6 @@
           <div style="margin-top:15px">Derivation path used is m/44'/0'/0'/0/0</div>
         </fieldset>
       </div>
-
-      <br>
-      <footer class="footer hide" id="githubLink">
-        <a href="https://github.com/mr-zwets/my-cashtokens-webwallet" target="_blank" >
-            <img class="githublogo" src="./images/github.png" alt="Github logo">
-        </a>
-        <div style="margin-left: 10px;height: 60px;">
-          <a href="https://github.com/mr-zwets/my-cashtokens-webwallet" target="_blank">
-          <div>
-            inspect source code
-          </div>
-          </a>
-          <div>
-            made with mainnet-js
-          </div>
-        </div>
-        
-      </footer>
     </div>
   </main>
 
