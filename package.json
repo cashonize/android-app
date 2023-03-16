@@ -1,0 +1,27 @@
+{
+  "name": "cashtokens-wallet-app",
+  "version": "1.0.0",
+  "description": "This is the code repository for <b>my CashTokens Wallet App</b>, an Android wallet with CashTokens support for chipnet.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mr-zwets/-cashtokens-wallet-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mr-zwets/-cashtokens-wallet-app/issues"
+  },
+  "homepage": "https://github.com/mr-zwets/-cashtokens-wallet-app#readme",
+  "dependencies": {
+    "@capacitor/android": "^4.7.0",
+    "@capacitor/core": "^4.7.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^4.7.0"
+  }
+}

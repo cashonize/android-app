@@ -1,0 +1,281 @@
+:root {
+  --color-primary: #0ac18f;
+}
+html {
+  overflow-y: scroll;
+}
+header {
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.tabs a{
+  padding: 1rem 1.8rem;
+}
+.icon{
+  vertical-align: text-bottom;
+}
+#settingsIcon.dark{
+  content:url("images/cogGrey.svg");
+}
+.active #settingsIcon{
+  content:url("/images/cogGreen.svg");
+}
+.plusIcon.dark{
+  content:url("images/plus-squareGrey.svg");
+}
+.importIcon.dark{
+  content:url("images/log-inGrey.svg");
+}
+.copyIcon{
+  content:url("images/copyGrey.svg");
+}
+#sendIcon.dark{
+  content:url("images/sendGrey.svg");
+}
+#infoIcon.dark{
+  content:url("images/infoGrey.svg");
+}
+#mintIcon.dark{
+  content:url("images/hammerGrey.svg");
+}
+#burnIcon.dark{
+  content:url("images/fireGrey.svg");
+}
+.unverifiedIcon{
+  content:url("images/exclamation-circle.svg");
+}
+body {
+  margin: 0px;
+  margin-top: 25px;
+  display: block;
+  --grid-maxWidth: 75rem;
+}
+main{
+  display: flex;
+  justify-content: center;
+  margin: 0 20px;
+}
+.view {
+  width: 100%;
+  text-decoration: underline;
+  cursor: pointer;
+  width: fit-content;
+}
+.depositAddr,
+.tokenID {
+  overflow-wrap: anywhere;
+  color: var(--color-grey);
+}
+.placeholderQr {
+  margin: 5px auto 0 auto;
+  display: block;
+  margin-top: 5px;
+  width: 240px;
+}
+#switchAddress {
+  position: relative;
+  top: -10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#switchAddress.dark {
+  top: 0px;
+}
+.copyIcon{
+  margin-bottom: 1px;
+}
+#Placeholder {
+  margin: 0;
+  padding: 0
+}
+.addressInput {
+  margin-right: 14px;
+  width: 50%;
+}
+.inputGroup {
+  margin: 0px 0 10px 0;
+  display: flex;
+}
+.sendAmountGroup {
+  display: flex;
+  width: 50%;
+}
+.primaryButton {
+  background-color: var(--color-primary); 
+  color: white;
+}
+.verified {
+  float: right;
+}
+.tokenInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.tokenAmount {
+  margin-left: 30px;
+}
+#bcmrUrl, #bcmrIpfs{
+  width: -moz-available;          /* WebKit-based browsers will ignore this. */
+  width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+  width: fill-available;
+}
+.actionBar{
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+.tokenIcon {
+  margin-right: 10px;
+}
+.tokenIcon canvas {
+  display: block;
+  border-radius: 50%;
+}
+.tokenBaseInfo {
+  width: 100%; 
+  display: flex;
+  align-items: center
+}
+.tokenBaseInfo1{
+  width: 370px;
+  display: block;
+}
+.tokenButton {
+  margin-left: 40px;
+  cursor: pointer;
+}
+.showmobile {
+  display: none;
+}
+#noTokensFound {
+  text-align: center;
+}
+#selectUnit, #selectUri{
+  box-sizing: content-box;
+  width:80px;
+  display: inline-block;
+  padding: 0.4rem 1rem
+}
+.hide {
+  display: none;
+}
+.item {
+  margin: 10px;
+}
+#githubLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.githublogo {
+  width: 64px;
+}
+footer{
+  padding-bottom: 20px;
+}
+@media only screen and (max-width: 850px) {
+  .tokenBaseInfo {
+    display: block;
+  }
+  .tokenBaseInfo1{
+    width: 100%;
+  }
+  .tokenAmount {
+    margin-left: 0px;
+  }
+  .tooltiptext{
+    top: -30px;
+    left: -115px;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .inputGroup {
+    display: block;
+  }
+  .addressInput {
+    width: 100%;
+    margin: 0px;
+  }
+  .sendAmountGroup {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+@media only screen and (max-width: 570px) {
+  main{
+    margin: 0;
+  }
+  h1 {
+    font-size: 1.7em;
+  }
+  .item {
+    margin: 10px 0;
+  }
+  .tokenButton {
+    margin-left: 20px;
+  }
+  .showmobile {
+    display: inline-block;
+  }
+  .hidemobile {
+    display: none;
+  }
+}
+body.dark {
+  --bg-color: #000;
+  --bg-secondary-color: #131316;
+  --font-color: #f5f5f5;
+  --color-grey: #ccc;
+  --color-darkGrey: #777;
+  }
+.input-icon {
+  position: relative;
+}
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 55px;
+  text-align: center;
+  font-style: normal;
+}
+.input-icon-right > i {
+  right: 0;
+}
+
+.input-icon-right > input {
+  padding-left: 0;
+  padding-right: 25px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
