@@ -186,15 +186,19 @@ async function loadWalletInfo() {
   async function importRegistries(tokens) {
     tokens.forEach(async (token, index) => {
       try{
-        const authChain = await BCMR.addMetadataRegistryAuthChain({
+        const authChain = await BCMR.buildAuthChain({
           transactionHash: token.tokenId,
           followToHead: true,
           network: Network.TESTNET
         });
-        if(authChain){
-          console.log("Importing an on-chain resolved BCMR!");
-          await BCMR.addMetadataRegistryFromUri(authChain[0].uri);
-          reRenderToken(token, index);
+        if(authChain[0]){
+          try{
+            const reponse = await fetch(authChain[0].uri);
+            const json = await reponse.json();
+            await BCMR.addMetadataRegistryFromUri(authChain[0].uri);
+            console.log("Importing an on-chain resolved BCMR!");
+            reRenderToken(token, index);
+          }catch(e){ console.log(e) }
         }
       } catch(error){ }
     })
