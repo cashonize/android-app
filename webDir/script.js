@@ -1,6 +1,7 @@
 import { queryTotalSupplyFT, queryActiveMinting, querySupplyNFTs } from './queryChainGraph.js';
 
 const explorerUrl = "https://chipnet.chaingraph.cash";
+const nameWallet = "mywallet"
 
 const newWalletView = document.querySelector('#newWalletView');
 const seedphrase = document.getElementById("seedphrase");
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async (event) => {
     setTimeout(() => alert("Can't create a persistent wallet because indexedDb is unavailable, might be because of private window."), 100);
   }
 
-  const walletExists = await TestNetWallet.namedExists('mywallet');
+  const walletExists = await TestNetWallet.namedExists(nameWallet);
   if(!walletExists) newWalletView.classList.remove("hide");
   else{loadWalletInfo()};
 })
@@ -58,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async (event) => {
 window.createNewWallet = async function createNewWallet() {
   // Initialize wallet
   DefaultProvider.servers.testnet = ["wss://chipnet.imaginary.cash:50004"]
-  await TestNetWallet.named("mywallet");
+  await TestNetWallet.named(nameWallet);
   loadWalletInfo()
 }
 
@@ -68,7 +69,7 @@ window.importWallet = async function importWallet() {
   const seedphrase = document.querySelector('#enterSeedphrase').value;
   const derivationPath = "m/44'/0'/0'/0/0";
   const walletId = `seed:testnet:${seedphrase}:${derivationPath}`;
-  await TestNetWallet.replaceNamed('mywallet', walletId);
+  await TestNetWallet.replaceNamed(nameWallet, walletId);
   loadWalletInfo()
 }
 
@@ -81,9 +82,10 @@ async function loadWalletInfo() {
 
   // Initialize wallet
   DefaultProvider.servers.testnet = ["wss://chipnet.imaginary.cash:50004"]
-  const wallet = await TestNetWallet.named("mywallet");
+  const wallet = await TestNetWallet.named(nameWallet);
   seedphrase.textContent = wallet.mnemonic;
-  console.log(wallet)
+  document.querySelector('#walletDerivationPath').textContent = wallet.derivationPath;
+  console.log(wallet);
   Config.EnforceCashTokenReceiptAddresses = true;
 
   // Import BCMR
