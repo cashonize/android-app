@@ -92,7 +92,7 @@ async function loadWalletInfo() {
   const url = "https://raw.githubusercontent.com/mr-zwets/example_bcmr/main/example_bcmr.json"
   await BCMR.addMetadataRegistryFromUri(url);
 
-  // Display BCH balance and watch for changes
+  // Display USD & BCH balance and watch for changes
   let balance = await wallet.getBalance();
   let maxAmountToSend = await wallet.getMaxAmountToSend();
   if(unit == "tBCH"){
@@ -105,6 +105,7 @@ async function loadWalletInfo() {
     document.querySelector('#balanceUnit').innerText = ' testnet satoshis';
     document.querySelector('#sendUnit').innerText = ' sats';
   }
+  document.querySelector('#balanceUsd').innerText = `${balance.usd} $`;
   wallet.watchBalance(async (newBalance) => {
     balance = newBalance;
     maxAmountToSend = await wallet.getMaxAmountToSend();
@@ -116,6 +117,7 @@ async function loadWalletInfo() {
       document.querySelector('#balance').innerText = balance.sat;
       document.querySelector('#balanceUnit').innerText = ' testnet satoshis';
     }
+    document.querySelector('#balanceUsd').innerText = `${balance.usd} $`;
   });
 
   // Initilize address and display QR code
