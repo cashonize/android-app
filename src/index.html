@@ -3,14 +3,12 @@
 
 <head>
   <title>CashTokens Webwallet</title>
-  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="icon" type="image/png" href="./images/favicon.png">
   <meta name="description" content="Bitcoin Cash Webwallet with CashTokens support for chipnet.">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/chota@0.8.0/dist/chota.min.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="switchery/switchery.css" />
-  <script src="switchery/switchery.js"></script>
   <script defer src="https://cdn.mainnet.cash/mainnet-1.0.16.js"></script>
   <script>window.exports = {}</script>
   <script defer src="https://unpkg.com/@download/blockies@1.0.3/dist/blockies.min.js"></script>
@@ -21,7 +19,7 @@
   <div>
     <header>
       <h1 style="margin: 0.35em 0 0.35em">
-        <img class="icon" style="width: 40px;" src="/images/favicon.png">
+        <img class="icon" style="width: 40px;" src="./images/favicon.png">
         CashTokens Wallet
       </h1>
       <div>
@@ -31,7 +29,7 @@
               <a id="view0" class="view active" onclick="changeView(0)">BchWallet</a>
               <a id="view1" class="view" onclick="changeView(1)">MyTokens</a>
               <a id="view2" class="view" onclick="changeView(2)">
-                <div><img id="settingsIcon" class="icon" src="/images/settings.svg"></div>
+                <div><img id="settingsIcon" class="icon" src="./images/settings.svg"></div>
               </a>
             </div>
           </div>
@@ -43,12 +41,12 @@
     <div class="container">
       <div id="newWalletView" class="hide">
         <fieldset style="margin-top: 15px;">
-            <h4><img class="icon plusIcon" src="/images/plus-square.svg"> Create new wallet</h4>
+            <h4><img class="icon plusIcon" src="./images/plus-square.svg"> Create new wallet</h4>
             <input class="button primary" type="button" value="Create" onclick="createNewWallet()">
             <br><br>
             <hr>
             <br>
-            <h4><img class="icon importIcon" src="/images/log-in.svg"> Import existing wallet</h4> 
+            <h4><img class="icon importIcon" src="./images/log-in.svg"> Import existing wallet</h4> 
             <div>Enter mnemonic seed phrase</div>
             <span>Derivation path: </span>
             <select name="derivationPath" id="derivationPath" onchange="selectTokenType(event)">
@@ -76,12 +74,12 @@
           <div>Wallet token balance: <span id="tokenBalance" class="text-primary"></span></div>
           <div style="word-break: break-all;">BCH address: <span class="depositAddr" id="depositAddr"></span>
             <button type="button" style="background: none; padding: 0;" onclick="copyTextContent('depositAddr')">
-              <img class="copyIcon icon" src="/images/copy.svg">
+              <img class="copyIcon icon" src="./images/copy.svg">
             </button>
           </div>
           <div style="word-break: break-all;">Token address: <span class="depositAddr" id="depositTokenAddr"></span>
             <button type="button" style="background: none; padding: 0;" onclick="copyTextContent('depositTokenAddr')">
-              <img class="copyIcon icon" src="/images/copy.svg">
+              <img class="copyIcon icon" src="./images/copy.svg">
             </button>
           </div>
           <div><img id="placeholderQr" class="placeholderQr" src="./images/qrcode.jpg" /></div>
@@ -96,7 +94,7 @@
               background-color: #fff;
             "
           >
-            <img src="/images/favicon.png" slot="icon" />
+            <img src="./images/favicon.png" slot="icon" />
           </qr-code>
 
           <qr-code
@@ -110,7 +108,7 @@
               background-color: #fff;
             "
           >
-            <img src="/images/tokenicon.png" slot="icon" />
+            <img src="./images/tokenicon.png" slot="icon" />
           </qr-code>
 
           <div class="is-center"><div id="switchAddress" class="icon" onclick="switchAddressType()">⇄</div></div>
@@ -159,7 +157,7 @@
                     <div style="word-break: break-all;">
                       TokenId: <span id="tokenID" class="tokenID"></span>
                       <button type="button" style="background: none; padding: 0; " onclick="copyTokenID(event)">
-                        <img class="copyIcon icon" src="/images/copy.svg">
+                        <img class="copyIcon icon" src="./images/copy.svg">
                       </button>
                     </div>
                   </div>
@@ -168,15 +166,15 @@
               </div>
               <div class="actionBar">
                 <span style="margin-left: 10px;" class="tokenButton" id="sendButton">
-                  <img id="sendIcon" class="icon" src="/images/send.svg"> send </span>
+                  <img id="sendIcon" class="icon" src="./images/send.svg"> send </span>
                 <span class="tokenButton" id="infoButton">
-                  <img id="infoIcon" class="icon" src="/images/info.svg"> info 
+                  <img id="infoIcon" class="icon" src="./images/info.svg"> info 
                 </span>
                 <span class="tokenButton hide" id="mintButton">
-                  <img id="mintIcon" class="icon" src="/images/hammer.svg"> mint NFT 
+                  <img id="mintIcon" class="icon" src="./images/hammer.svg"> mint NFT 
                 </span>
                 <span class="tokenButton hide" style="white-space: nowrap;" id="burnButton">
-                  <img id="burnIcon" class="icon" src="/images/fire.svg">
+                  <img id="burnIcon" class="icon" src="./images/fire.svg">
                   <span class="hidemobile">burn NFT</span>
                   <span class="showmobile">burn</span>
                 </span>

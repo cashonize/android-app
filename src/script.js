@@ -1,4 +1,5 @@
 import { queryTotalSupplyFT, queryActiveMinting, querySupplyNFTs } from './queryChainGraph.js';
+import { Share } from "c:/Users/mathieu's desktop/Desktop/cashtokens-wallet-app/webDir/node_modules/@capacitor/share/dist/esm/index";
 
 const explorerUrl = "https://chipnet.chaingraph.cash";
 const nameWallet = "mywallet"
@@ -19,10 +20,10 @@ window.matchMedia('(prefers-color-scheme: dark)').matches) {
   toggleDarkmode();
 }
 // see switchery docs
-let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-elems.forEach(elem => {
-  const switchery = new Switchery(elem, { size: 'small', color:"#0ac18f"});
-});
+//let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+//elems.forEach(elem => {
+//  const switchery = new Switchery(elem, { size: 'small', color:"#0ac18f"});
+//});
 const changeDarkMode = document.querySelector('#darkmode');
 changeDarkMode.onchange = () => toggleDarkmode();
 function toggleDarkmode() {
