@@ -1,5 +1,9 @@
 import { queryTotalSupplyFT, queryActiveMinting, querySupplyNFTs } from './queryChainGraph.js';
-import { Share } from "c:/Users/mathieu's desktop/Desktop/cashtokens-wallet-app/webDir/node_modules/@capacitor/share/dist/esm/index";
+import { Preferences } from '@capacitor/preferences';
+
+const getDarkMode = async () => {
+  await Preferences.get({key: 'darkMode'});
+};
 
 const explorerUrl = "https://chipnet.chaingraph.cash";
 const nameWallet = "mywallet"
@@ -9,16 +13,18 @@ const seedphrase = document.getElementById("seedphrase");
 
 // Logic dark mode
 let darkMode = false;
-const readDarkMode = localStorage.getItem("darkMode");
+// Get darkmode in preferences API
+const readDarkMode = await getDarkMode();
 if (readDarkMode === "true") {
   document.querySelector('#darkmode').checked = true;
   toggleDarkmode();
 }
+/*
 if (readDarkMode == undefined && matchMedia &&
 window.matchMedia('(prefers-color-scheme: dark)').matches) {
   document.querySelector('#darkmode').checked = true;
   toggleDarkmode();
-}
+}*/
 // see switchery docs
 //let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
 //elems.forEach(elem => {
@@ -32,7 +38,7 @@ function toggleDarkmode() {
   const icons = document.querySelectorAll('.icon');
   if(darkMode) icons.forEach(icon => icon.classList.add("dark"));
   else icons.forEach(icon => icon.classList.remove("dark"));
-  localStorage.setItem("darkMode", `${darkMode}`);
+  // Set darkmode in preferences API
   document.querySelector('#darkmode').checked = darkMode;
 }
 
