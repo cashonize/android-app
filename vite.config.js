@@ -1,5 +1,7 @@
 export default {
+  root: 'src',
   build: {
-    target: 'esnext'
+    target: 'esnext',
+    outDir: '../webDir'
   }
 }

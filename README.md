@@ -11,6 +11,8 @@ The app does not have the 'createTokens' functonality and does not display the f
 ### Run App
 
 ```
+yarn
+yarn vite build
 npx cap sync
 npx cap open android
 ```
