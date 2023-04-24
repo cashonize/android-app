@@ -19,15 +19,4 @@ npx cap open android
 
 ### Problem
 
-Importing Capacitor-js plugins does not work.
-
-```
-D/Capacitor: Registering plugin instance: Preferences
-W/Capacitor: Unable to read file at path public/plugins
-D/Capacitor: Loading app at http://localhost
-...
-V/Capacitor/Plugin: To native (Capacitor plugin): callbackId: 23838399, pluginId: Preferences, methodName: get
-V/Capacitor: callback: 23838399, pluginId: Preferences, methodName: get, methodData: {"key":"darkMode"}
-W/System: A resource failed to call close. 
-
-```
+Persisting state darkmode with Preferences API does not work.

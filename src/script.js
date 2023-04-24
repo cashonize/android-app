@@ -5,16 +5,40 @@ const getDarkMode = async () => {
   await Preferences.get({key: 'darkMode'});
 };
 
+const setDarkMode = async (darkmode) => {
+  console.log("setDarkMode: "+darkmode.toString())
+  await Preferences.set({
+    key: 'darkMode',
+    value: darkmode.toString(),
+  });
+};
+console.log("keys: "+ await Preferences.keys())
+console.log(await Preferences.keys())
+
 const explorerUrl = "https://chipnet.chaingraph.cash";
 const nameWallet = "mywallet"
 
 const newWalletView = document.querySelector('#newWalletView');
 const seedphrase = document.getElementById("seedphrase");
 
+// Change view logic
+window.changeView = function changeView(newView) {
+  const views = ['walletView','tokenView','settingsView'];
+  // First hide all views
+  views.forEach((view, index) => {
+    document.querySelector(`#${view}`).classList.add("hide");
+    document.querySelector(`#view${index}`).classList = "view";
+  })
+  // Show selected view & highlight in nav
+  document.querySelector(`#${views[newView]}`).classList.remove("hide");
+  document.querySelector(`#view${newView}`).classList = "view active";
+}
+
 // Logic dark mode
 let darkMode = false;
 // Get darkmode in preferences API
 const readDarkMode = await getDarkMode();
+console.log("readDarkMode: "+readDarkMode)
 if (readDarkMode === "true") {
   document.querySelector('#darkmode').checked = true;
   toggleDarkmode();
@@ -32,13 +56,14 @@ window.matchMedia('(prefers-color-scheme: dark)').matches) {
 //});
 const changeDarkMode = document.querySelector('#darkmode');
 changeDarkMode.onchange = () => toggleDarkmode();
-function toggleDarkmode() {
+async function toggleDarkmode() {
   darkMode = !darkMode;
   document.body.classList= darkMode? "dark" : "";
   const icons = document.querySelectorAll('.icon');
   if(darkMode) icons.forEach(icon => icon.classList.add("dark"));
   else icons.forEach(icon => icon.classList.remove("dark"));
   // Set darkmode in preferences API
+  await setDarkMode(darkMode)
   document.querySelector('#darkmode').checked = darkMode;
 }
 
@@ -47,21 +72,19 @@ const readUnit = localStorage.getItem("unit");
 if(readUnit) document.querySelector('#selectUnit').value = readUnit;
 let unit = readUnit || 'tBCH';
 
-document.addEventListener("DOMContentLoaded", async (event) => {
-  // Make sure rest of code executes after mainnet-js has been imported properly
-  Object.assign(globalThis, await __mainnetPromise);
+// Make sure rest of code executes after mainnet-js has been imported properly
+Object.assign(globalThis, await __mainnetPromise);
 
-  // Test that indexedDB is available
-  var db = window.indexedDB.open('test');
-  db.onerror = () => {
-    newWalletView.classList.remove("hide");
-    setTimeout(() => alert("Can't create a persistent wallet because indexedDb is unavailable, might be because of private window."), 100);
-  }
+// Test that indexedDB is available
+const db = window.indexedDB.open('test');
+db.onerror = () => {
+  newWalletView.classList.remove("hide");
+  setTimeout(() => alert("Can't create a persistent wallet because indexedDb is unavailable, might be because of private window."), 100);
+}
 
-  const walletExists = await TestNetWallet.namedExists(nameWallet);
-  if(!walletExists) newWalletView.classList.remove("hide");
-  else{loadWalletInfo()};
-})
+const walletExists = await TestNetWallet.namedExists(nameWallet);
+if(!walletExists) newWalletView.classList.remove("hide");
+else{loadWalletInfo()};
 
 window.createNewWallet = async function createNewWallet() {
   // Initialize wallet
@@ -529,19 +552,6 @@ window.copyTextContent = function copyTextContent(id) {
 }
 window.copyTokenID = function copyTokenID(event, id='tokenID') {
   navigator.clipboard.writeText(event.currentTarget.parentElement.querySelector(`#${id}`).value)
-}
-
-// Change view logic
-window.changeView = function changeView(newView) {
-  const views = ['walletView','tokenView','settingsView'];
-  // First hide all views
-  views.forEach((view, index) => {
-    document.querySelector(`#${view}`).classList.add("hide");
-    document.querySelector(`#view${index}`).classList = "view";
-  })
-  // Show selected view & highlight in nav
-  document.querySelector(`#${views[newView]}`).classList.remove("hide");
-  document.querySelector(`#view${newView}`).classList = "view active";
 }
 
 // Change default unit
