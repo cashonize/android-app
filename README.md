@@ -1,12 +1,12 @@
-## CashTokens Wallet App
+## Cashonize Android App
 
-This is the code repository for <b>my CashTokens Wallet App</b>, an Android wallet with CashTokens support for chipnet. <br>
+This is the code repository for the <b>Cashonize Android App</b>, a Bitcoin Cash Android Wallet with CashTokens support. <br>
 
-The project uses [Capacitor-js](https://capacitorjs.com/) & [Vite](https://vitejs.dev/) to turn [My CashTokens Webwallet](https://github.com/mr-zwets/my-cashtokens-webwallet) into an Android app!
+The project uses [Capacitor-js](https://capacitorjs.com/) & [Vite](https://vitejs.dev/) to turn [the Cashonize wallet](https://github.com/cashonize/wallet) into an Android app!
 
 ### Differences with the webwallet
 
-The app does not have the 'createTokens' functonality and does not display the footer on each page.
+The app does not have the 'createTokens' functonality and does not display the github repo on the footer of each page.
 
 ### Run App
 
@@ -17,6 +17,8 @@ npx cap sync
 npx cap open android
 ```
 
-### Problem
+The `vite build` command will create a `dist` folder with the bundled assets.
 
-Persisting state darkmode with Preferences API does not work.
+###  Special thanks to
+
+For making the app version a big thanks should go to Kallisti
