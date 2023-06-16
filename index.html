@@ -2,14 +2,14 @@
 <html lang="en">
 
 <head>
-  <title>CashTokens Webwallet</title>
+  <title>Cashonize</title>
   <link rel="icon" type="image/png" href="./src/images/favicon.png">
-  <meta name="description" content="Bitcoin Cash Webwallet with CashTokens support for chipnet.">
+  <meta name="description" content="Cashonize: Bitcoin Cash Webwallet with CashTokens support for mainnet & chipnet.">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/chota@0.8.0/dist/chota.min.css">
   <link rel="stylesheet" href="./src/style.css">
-  <script defer src="https://cdn.mainnet.cash/mainnet-1.0.16.js"></script>
+  <script defer src="https://cdn.mainnet.cash/mainnet-1.1.27.js"></script>
   <script>window.exports = {}</script>
   <script defer src="https://unpkg.com/@download/blockies@1.0.3/dist/blockies.min.js"></script>
   <script src="https://unpkg.com/@bitjson/qr-code@1.0.2/dist/qr-code.js"></script>
@@ -20,7 +20,7 @@
     <header>
       <h1 style="margin: 0.35em 0 0.35em">
         <img class="icon" style="width: 40px;" src="./src/images/favicon.png">
-        CashTokens Wallet
+        Cashonize
       </h1>
       <div>
         <nav class="nav hide">
@@ -61,14 +61,13 @@
 
       <div id="walletView" class="hide">
 
-        <fieldset style="margin-top: 20px;">
-          <div style="margin-top: 15px; font-size: 1.2em;">
+        <fieldset style="margin-top: 20px; padding-top: 2rem;">
+          <div id="showsUsdBalance">
             <span>USD balance: </span>
             <span id="balanceUsd" class="text-primary"></span>
           </div>
           <div>
             BCH balance: <span id="balance" class="text-primary"></span>
-            Wallet balance: <span id="balance" class="text-primary"></span>
             <span id="balanceUnit" class="text-primary unit"></span>
           </div>
           <div>Wallet token balance: <span id="tokenBalance" class="text-primary"></span></div>
@@ -114,13 +113,13 @@
           <div class="is-center"><div id="switchAddress" class="icon" onclick="switchAddressType()">⇄</div></div>
         </fieldset>
         <fieldset style="margin-top: 15px">
-          <legend>Send tBCH to</legend>
+          <legend>Send BCH to</legend>
           <p class="inputGroup">
             <span class="addressInput"><input id="sendAddr" placeholder="address"></span>
             <span class="sendAmountGroup">
               <span style="width: 100%;" class="input-icon input-icon-right">
                 <input id="sendAmount" type="text" placeholder="amount">
-                <i id="sendUnit" style="color: black;">tBCH</i>
+                <i id="sendUnit" style="color: black;">BCH</i>
               </span>
               <button onclick="maxBch(event)" style="color: black;">max</button>
             </span>
@@ -136,10 +135,10 @@
           <span>Show verified tokens only </span>
           <input type="checkbox" class="js-switch js-check-change" id="verifiedOnlySwitch">
         </div>
-        <div id="noVerifiedTokens" class="hide" style="margin: 50px 0 250px 0;">No verified tokens in this wallet...</div>
+        <div id="noVerifiedTokens" class="hide" style="margin: 20px 0px;">No verified tokens in this wallet...</div>
         <template id="token-template">
-          <div class="item wallet">
-            <fieldset>
+          <div class="item">
+            <fieldset style="position: relative;">
               <legend>
                 <div id="tokenType"></div>
               </legend>
@@ -154,14 +153,22 @@
                 <div class="tokenBaseInfo">
                   <div class="tokenBaseInfo1">
                     <div id="tokenName"></div>
-                    <div style="word-break: break-all;">
+                    <div id="tokenIdBox" style="word-break: break-all;">
                       TokenId: <span id="tokenID" class="tokenID"></span>
                       <button type="button" style="background: none; padding: 0; " onclick="copyTokenID(event)">
                         <img class="copyIcon icon" src="./src/images/copy.svg">
                       </button>
                     </div>
+                    <div id="childNftCommitment" style="word-break: break-all;" class="hide"></div>
                   </div>
                   <div class="tokenAmount" id="tokenAmount"></div>
+                  <div class="childNfts" id="childNfts" style=" cursor: pointer;">
+                    <span class="nrChildNfts" id="nrChildNfts"></span>
+                    <span class="hide" id="showMore" style="margin-left: 10px;">
+                      <img id="showIcon" class="icon" style="vertical-align: text-bottom;" src="./src/images/chevron-square-down.svg">
+                    </span>
+                  </div>
+                  
                 </div>
               </div>
               <div class="actionBar">
@@ -183,6 +190,7 @@
                   <div id="tokenDescription"></div>
                   <div id="tokenDecimals"></div>
                   <div id="tokenCommitment"></div>
+                  <div id="tokenWebLink"></div>
                   <div id="onchainTokenInfo" style="white-space: pre-line;"></div>
                 </div>
                 <div id="tokenSend" class="hide"  style="margin-top: 10px;">
@@ -240,14 +248,23 @@
           <div style="margin-top:15px">
             <label for="selectUnit">Select default unit:</label>
             <select name="selectUnit" id="selectUnit" onchange="selectUnit(event)">
-              <option value="tBCH">tBCH</option>
+              <option value="BCH">BCH</option>
               <option value="satoshis">satoshis</option>
+            </select>
+          </div>
+          <div style="margin-top:15px">
+            <label for="selectNetwork">Change network:</label>
+            <select name="selectNetwork" id="selectNetwork" onchange="changeNetwork(event)">
+              <option value="mainnet">mainnet</option>
+              <option value="chipnet">chipnet</option>
             </select>
           </div>
           <div style="margin-top:15px">Make backup of seed phrase (mnemonic)</div>
           <input class="button primary" type="button" style="padding: 1rem 1.5rem; display: block;" value="Show seed phrase" onclick="toggleSeedphrase(event)">
-          <div id="seedphrase" class="hide"></div>
+          <div id="seedphrase" class="hide"></div><br>
           <span style="margin-top:15px">Derivation path of this wallet is</span> <span id="walletDerivationPath"></span>
+          <div style="margin-top:15px">Remove wallet data from browser</div>
+          <input type="button" id="burnNFT" value="Delete wallet" class="button error" style="display: block;" onclick="confirmDeleteWallet(event)">
         </fieldset>
       </div>
     </div>

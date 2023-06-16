@@ -6,6 +6,7 @@ html {
 }
 header {
   margin: 0px;
+  margin-top: 25px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -45,12 +46,20 @@ header {
 #burnIcon.dark{
   content:url("images/fireGrey.svg");
 }
+#showIcon.dark{
+  content:url("images/chevron-square-downGrey.svg");
+}
+#showIcon.less{
+  content:url("images/chevron-square-up.svg");
+}
+#showIcon.less.dark{
+  content:url("images/chevron-square-upGrey.svg");
+}
 .unverifiedIcon{
   content:url("images/exclamation-circle.svg");
 }
 body {
   margin: 0px;
-  margin-top: 25px;
   display: block;
   --grid-maxWidth: 75rem;
 }
@@ -69,10 +78,19 @@ main{
   display: contents;
   min-height: 10px;
 }
+#derivationPath{
+  box-sizing: content-box;
+  display: inline-block;
+  width:250px;
+  padding: 0.4rem 1rem
+}
 .depositAddr,
 .tokenID {
   overflow-wrap: anywhere;
   color: var(--color-grey);
+}
+#showsUsdBalance{
+  font-size: 1.2em
 }
 .placeholderQr {
   margin: 5px auto 0 auto;
@@ -83,7 +101,7 @@ main{
 #switchAddress {
   position: relative;
   top: -10px;
-  font-size: 26px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -120,7 +138,8 @@ main{
   margin-bottom: -10px;
 }
 .verified {
-  float: right;
+  position: absolute;
+  right: 20px;
 }
 .tokenInfo {
   display: flex;
@@ -129,6 +148,7 @@ main{
 }
 .tokenAmount {
   margin-left: 30px;
+  max-width: 225px;
 }
 #bcmrUrl, #bcmrIpfs{
   width: -moz-available;          /* WebKit-based browsers will ignore this. */
@@ -164,7 +184,6 @@ main{
 }
 #noTokensFound, #noVerifiedTokens, #loadingTokenData {
   text-align: center;
-  margin-top: 40px;
 }
 #selectUnit, #selectUri{
   box-sizing: content-box;
@@ -185,9 +204,6 @@ main{
 }
 .githublogo {
   width: 64px;
-}
-footer{
-  padding-bottom: 20px;
 }
 @media only screen and (max-width: 850px) {
   .tokenBaseInfo {
