@@ -2,7 +2,7 @@ import { queryTotalSupplyFT, queryActiveMinting, querySupplyNFTs } from './query
 import { Preferences } from '@capacitor/preferences';
 
 const getDarkMode = async () => {
-  await Preferences.get({key: 'darkMode'});
+  return await Preferences.get({key: 'darkMode'});
 };
 
 const setDarkMode = async (darkmode) => {
@@ -37,8 +37,8 @@ window.changeView = function changeView(newView) {
 // Logic dark mode
 let darkMode = false;
 // Get darkmode in preferences API
-const readDarkMode = await getDarkMode();
-console.log("readDarkMode: "+readDarkMode)
+const readDarkMode = (await getDarkMode()).value;
+console.log("readDarkMode: ", readDarkMode)
 if (readDarkMode === "true") {
   document.querySelector('#darkmode').checked = true;
   toggleDarkmode();

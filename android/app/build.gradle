@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace "xyz.cashtokenswebwallet"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "xyz.cashtokenswebwallet"
