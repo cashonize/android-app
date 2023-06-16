@@ -12,13 +12,14 @@ const ipfsGateway = "https://ipfs.io/ipfs/";
 const nameWallet = "mywallet";
 
 // Helper functions capacitor preferences plugin
-const getDarkMode = async () => {
-  return await Preferences.get({key: 'darkMode'});
+const getPreference = async (preferenceKey) => {
+  return await Preferences.get({key: preferenceKey});
 };
-const setDarkMode = async (darkmode) => {
+const setPreference = async (preferenceKey, preferenceValue) => {
+  if(preferenceKey == 'darkMode') preferenceValue = preferenceValue.toString()
   await Preferences.set({
-    key: 'darkMode',
-    value: darkmode.toString(),
+    key: preferenceKey,
+    value: preferenceValue,
   });
 };
 
@@ -41,8 +42,7 @@ window.changeView = function changeView(newView) {
 // Logic dark mode
 let darkMode = false;
 // Get darkmode in preferences API
-const readDarkMode = (await getDarkMode()).value;
-console.log("readDarkMode: ", readDarkMode)
+const readDarkMode = (await getPreference("darkMode")).value;
 if (readDarkMode === "true") {
   document.querySelector('#darkmode').checked = true;
   toggleDarkmode();
@@ -67,17 +67,17 @@ async function toggleDarkmode() {
   if(darkMode) icons.forEach(icon => icon.classList.add("dark"));
   else icons.forEach(icon => icon.classList.remove("dark"));
   // Set darkmode in preferences API
-  await setDarkMode(darkMode)
+  await setPreference("darkMode",darkMode)
   document.querySelector('#darkmode').checked = darkMode;
 }
 
 // Logic default unit
-const readUnit = localStorage.getItem("unit");
+const readUnit = (await getPreference("unit")).value;
 if(readUnit) document.querySelector('#selectUnit').value = readUnit;
 let unit = readUnit || 'tBCH';
 
 // Logic network
-const readNetwork = localStorage.getItem("network");
+const readNetwork = (await getPreference("network")).value;
 let network = "mainnet"
 let walletClass
 let explorerUrl
@@ -101,7 +101,7 @@ walletClass = Wallet
 
 if(!readNetwork && walletExists){
   network = mainnetWalletExists ? "mainnet" : "chipnet";
-  localStorage.setItem("network", network);
+  setPreference("network", network);
 }
 if(readNetwork) network = readNetwork;
 document.querySelector('#selectNetwork').value = network;
@@ -750,8 +750,8 @@ window.selectUnit = function selectUnit(event){
     document.querySelector('#balanceUnit').innerText = ' BCH';
     document.querySelector('#sendUnit').innerText = ' BCH';
   }
-  localStorage.setItem("unit", `${event.target.value}`);
   unit = event.target.value;
+  setPreference("unit", unit);
   document.querySelector('#sendAmount').value = "";
 }
 
@@ -759,7 +759,7 @@ window.selectUnit = function selectUnit(event){
 window.changeNetwork = function changeNetwork(event){
   network = event.target.value;
   walletClass = network === "chipnet" ? TestNetWallet : Wallet;
-  localStorage.setItem("network", network);
+  setPreference("network", network);
   watchAddressCancel()
   watchBalanceCancel()
   loadWalletInfo();
