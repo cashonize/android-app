@@ -1,5 +1,6 @@
 import { queryTotalSupplyFT, queryActiveMinting, querySupplyNFTs } from './queryChainGraph.js';
 import { Preferences } from '@capacitor/preferences';
+import { Clipboard } from '@capacitor/clipboard';
 
 const explorerUrlMainnet = "https://explorer.bitcoinunlimited.info";
 const explorerUrlChipnet = "https://chipnet.chaingraph.cash";
@@ -726,12 +727,13 @@ function toggleVerifiedOnly() {
 }
 
 // Logic for copy onclick
-window.copyTextContent = function copyTextContent(id) {
-  var element = document.getElementById(id);
-  navigator.clipboard.writeText(element.textContent);
+window.copyTextContent = async function copyTextContent(id) {
+  const element = document.getElementById(id);
+  await Clipboard.write({string: element.textContent});
 }
-window.copyTokenID = function copyTokenID(event, id='tokenID') {
-  navigator.clipboard.writeText(event.currentTarget.parentElement.querySelector(`#${id}`).value)
+window.copyTokenID = async function copyTokenID(event, id='tokenID') {
+  const tokenIdString = event.currentTarget.parentElement.querySelector(`#${id}`).value;
+  await Clipboard.write({string: tokenIdString});
 }
 
 // Change default unit

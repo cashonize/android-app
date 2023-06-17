@@ -22,6 +22,7 @@
   "homepage": "https://github.com/mr-zwets/-cashtokens-wallet-app#readme",
   "dependencies": {
     "@capacitor/android": "^5.0.0",
+    "@capacitor/clipboard": "^5.0.4",
     "@capacitor/core": "^5.0.0",
     "@capacitor/preferences": "^5.0.4"
   },

@@ -7,7 +7,7 @@ The project uses [Capacitor-js](https://capacitorjs.com/) & [Vite](https://vitej
 ### Differences with the webwallet
 
 The app does not have the 'createTokens' functonality and does not display the github repo on the footer of each page.
-The Cashonize app uses the Preferences API instead of local storage to keep items configures on the settings page.
+The Cashonize app uses Capacitor Plugins for things like clipboard functionality & storing preferences.
 
 ### Run App
 
