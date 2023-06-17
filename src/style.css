@@ -23,7 +23,7 @@ header {
   content:url("images/cogGrey.svg");
 }
 .active #settingsIcon{
-  content:url("/images/cogGreen.svg");
+  content:url("images/cogGreen.svg");
 }
 .plusIcon.dark{
   content:url("images/plus-squareGrey.svg");
@@ -37,17 +37,32 @@ header {
 #sendIcon.dark{
   content:url("images/sendGrey.svg");
 }
+#sendIcon{
+  content:url("images/send.svg");
+}
 #infoIcon.dark{
   content:url("images/infoGrey.svg");
+}
+#infoIcon{
+  content:url("images/info.svg");
 }
 #mintIcon.dark{
   content:url("images/hammerGrey.svg");
 }
+#mintIcon{
+  content:url("images/hammer.svg");
+}
 #burnIcon.dark{
   content:url("images/fireGrey.svg");
 }
+#burnIcon{
+  content:url("images/fire.svg");
+}
 #showIcon.dark{
   content:url("images/chevron-square-downGrey.svg");
+}
+#showIcon{
+  content:url("images/chevron-square-down.svg");
 }
 #showIcon.less{
   content:url("images/chevron-square-up.svg");
