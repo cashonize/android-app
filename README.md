@@ -2,7 +2,7 @@
 
 This is the code repository for the <b>Cashonize Android App</b>, a Bitcoin Cash Android Wallet with CashTokens support. <br>
 
-The project uses [Capacitor-js](https://capacitorjs.com/) & [Vite](https://vitejs.dev/) to turn [the Cashonize wallet](https://github.com/cashonize/wallet) into an Android app!
+The project uses [Capacitor-js](https://capacitorjs.com/) & [Vite](https://vitejs.dev/) to turn [the Cashonize webwallet](https://github.com/cashonize/wallet) into an Android app!
 
 ### Differences with the webwallet
 
@@ -22,4 +22,5 @@ The `vite build` command will create a `dist` folder with the bundled assets.
 
 ###  Special thanks to
 
-For making the app version a big thanks should go to Kallisti
+Special thanks to Kallisti for helping get set up with capacitor-js for androd & for resolving a persistent problem with using the Preferences API down the line.
+And also to the capacitor team for their software & for pointing me in the right direction with the build process to enable plugins.
