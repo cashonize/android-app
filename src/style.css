@@ -6,12 +6,15 @@ html {
 }
 header {
   margin: 0px;
-  margin-top: 25px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   flex-direction: column;
   margin-bottom: 5px;
   text-align: center;
+}
+.cashonize-logo {
+  height: 85px;
 }
 .tabs a{
   padding: 1rem 1.8rem;

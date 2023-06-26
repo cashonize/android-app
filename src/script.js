@@ -65,8 +65,15 @@ async function toggleDarkmode() {
   darkMode = !darkMode;
   document.body.classList= darkMode? "dark" : "";
   const icons = document.querySelectorAll('.icon');
-  if(darkMode) icons.forEach(icon => icon.classList.add("dark"));
-  else icons.forEach(icon => icon.classList.remove("dark"));
+  const logo = document.querySelector(".cashonize-logo");
+  if(darkMode){
+    icons.forEach(icon => icon.classList.add("dark"));
+    logo.src = "./images/cashonize-logo-dark.png";
+  } 
+  else {
+    icons.forEach(icon => icon.classList.remove("dark"));
+    logo.src = "./images/cashonize-logo.png";
+  }
   // Set darkmode in preferences API
   await setPreference("darkMode",darkMode)
   document.querySelector('#darkmode').checked = darkMode;
