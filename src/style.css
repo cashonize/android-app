@@ -277,9 +277,6 @@ main{
   .hidemobile {
     display: none;
   }
-  .tabs a {
-    padding: 1rem;
-  }
 }
 body.dark {
   --bg-color: #000;

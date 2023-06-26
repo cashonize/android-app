@@ -22,5 +22,5 @@ The `vite build` command will create a `dist` folder with the bundled assets.
 
 ###  Special thanks to
 
-Special thanks to Kallisti for helping get set up with capacitor-js for androd & for resolving a persistent problem with using the Preferences API down the line.
+Special thanks to Kallisti for helping get set up with capacitor-js for android & for resolving a persistent problem with using the Preferences API down the line.
 And also to the capacitor team for their software & for pointing me in the right direction with the build process to enable plugins.
