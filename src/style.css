@@ -13,8 +13,12 @@ header {
   margin-bottom: 5px;
   text-align: center;
 }
-.cashonize-logo {
+#cashonize-logo.dark {
+  content:url("images/cashonize-logo-dark.png");
+}
+#cashonize-logo {
   height: 85px;
+  content:url("images/cashonize-logo.png");
 }
 .tabs a{
   padding: 1rem 1.8rem;
@@ -75,6 +79,9 @@ header {
 }
 .unverifiedIcon{
   content:url("images/exclamation-circle.svg");
+}
+.verifiedIcon{
+  content:url("images/check-circle.svg");
 }
 body {
   margin: 0px;
