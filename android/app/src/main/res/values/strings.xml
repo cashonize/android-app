@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">cashtokenswebwallet</string>
-    <string name="title_activity_main">cashtokenswebwallet</string>
+    <string name="app_name">Cashonize</string>
+    <string name="title_activity_main">Cashonize</string>
     <string name="package_name">xyz.cashtokenswebwallet</string>
     <string name="custom_url_scheme">xyz.cashtokenswebwallet</string>
 </resources>
